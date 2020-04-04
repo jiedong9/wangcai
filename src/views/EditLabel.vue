@@ -46,7 +46,8 @@
 
         remove() {
             if (this.tag) {
-                store.removeTag(this.tag.id)
+                if (store.removeTag(this.tag.id))
+                    this.$router.back()
             }
         }
 
