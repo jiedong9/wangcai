@@ -23,6 +23,7 @@
     import {Component} from 'vue-property-decorator'
     import FormItem from '@/components/Money/FormItem.vue'
     import Button from '@/components/Button.vue'
+    import {store} from '@/store/index2'
 
     @Component({
         components: {Button, FormItem}
@@ -31,7 +32,7 @@
         tag?: Tag = undefined
 
         created() {
-            this.tag = window.findTag(this.$route.params.id)
+            this.tag = store.findTag(this.$route.params.id)
             if (!this.tag) {
                 this.$router.replace('/404') // 路由器进行分发
             }
@@ -39,13 +40,13 @@
 
         updateTag(name: string) {
             if (this.tag) {
-                window.updateTag(this.tag.id, name)
+                store.updateTag(this.tag.id, name)
             }
         }
 
         remove() {
             if (this.tag) {
-                window.removeTag(this.tag.id)
+                store.removeTag(this.tag.id)
             }
         }
 
