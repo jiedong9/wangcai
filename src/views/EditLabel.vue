@@ -8,8 +8,8 @@
         </div>
         <div class="form-wrapper">
             <FormItem :value="tag.name"
-                    @update:value="updateTag"
-                    field-name="标签名" placeholder="请输入标签名"/>
+                      @update:value="updateTag"
+                      field-name="标签名" placeholder="请输入标签名"/>
         </div>
         <div class="button-wrapper">
             <Button @click="remove">删除标签</Button>
@@ -21,7 +21,6 @@
 <script lang='ts'>
     import Vue from 'vue'
     import {Component} from 'vue-property-decorator'
-    import {tagListModel} from '@/models/tagListModel'
     import FormItem from '@/components/Money/FormItem.vue'
     import Button from '@/components/Button.vue'
 
@@ -29,33 +28,28 @@
         components: {Button, FormItem}
     })
     export default class EditLabel extends Vue {
-        tag?: { id: string, name: string } = undefined
+        tag?: Tag = undefined
 
         created() {
-            const id = this.$route.params.id // 获取路由信息
-            tagListModel.fetch()
-            const tags = tagListModel.data
-            const tag = tags.filter(t => t.id === id)[0]
-            if (tag) {
-                this.tag = tag
-            } else {
+            this.tag = window.findTag(this.$route.params.id)
+            if (!this.tag) {
                 this.$router.replace('/404') // 路由器进行分发
             }
         }
 
-        updateTag(name: string){
-            if (this.tag){
-                tagListModel.update(this.tag.id,name)
+        updateTag(name: string) {
+            if (this.tag) {
+                window.updateTag(this.tag.id, name)
             }
         }
-        remove(){
-            if (this.tag){
-                if (tagListModel.remove(this.tag.id)){
-                    this.$router.back()
-                }
+
+        remove() {
+            if (this.tag) {
+                window.removeTag(this.tag.id)
             }
         }
-        goBack(){
+
+        goBack() {
             this.$router.back()
         }
 
