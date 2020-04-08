@@ -41,7 +41,7 @@
 
         &-item {
             width: 50%;
-            height: 50px;
+            height: 64px;
             display: flex;
             justify-content: center;
             align-items: center;
