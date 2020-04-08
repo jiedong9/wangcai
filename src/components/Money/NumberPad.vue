@@ -78,7 +78,7 @@
             @extend %innerShadow;
             font-size: 36px;
             font-family: Consolas, monospace;
-            padding: 9px 16px;
+            padding: 5px 16px;
             text-align: right;
         }
         .buttons {
